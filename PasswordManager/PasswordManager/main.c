@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "PasswordManager.h"
 
 int main() {
-	printf("Hello World!\n");
+	menu();
 	return 0;
 }
