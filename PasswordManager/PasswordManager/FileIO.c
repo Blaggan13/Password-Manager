@@ -2,10 +2,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <stdbool.h>
 #include "FileIO.h"
 
-void writeToFile(pApplication* apps) {
+void writeToFile(char* FILE_NAME, pApplication* apps, int count) {
 	FILE* fptr;
 	fptr = fopen(FILE_NAME, "w");
 
@@ -14,17 +15,14 @@ void writeToFile(pApplication* apps) {
 		exit(1);
 	}
 
-	int size = sizeof(apps) / sizeof(pApplication);
-	fprintf(fptr, "%d\n", size);
-
-	for(int i = 0; i < size; i++) {
+	for (int i = 0; i < count; i++) {
 		fprintf(fptr, "%s\n", encrypt(*(apps + i)));
 	}
 
 	fclose(fptr);
 }
 
-pApplication* readFile() {
+pApplication* readFile(char* FILE_NAME) {
 	pApplication* apps = (pApplication*)malloc(sizeof(pApplication) * 0);
 	if (!apps) {
 		fprintf(stderr, "Error allocating memory\n");
@@ -43,21 +41,20 @@ pApplication* readFile() {
 		return apps;
 	}
 	else {
-		int appsNum;
-		fscanf_s(fptr, "%d\n", &appsNum);
+		int appsNum = countLines(fptr);
 
 		if (appsNum == 0) {
 			fclose(fptr);
 			return apps;
 		}
 
-		for (int i = 0; i < appsNum; i++) {
-			apps = (pApplication)realloc(apps, (sizeof(APPLICATION) * (i + 1)));
-			if (!apps) {
-				fprintf(stderr, "Error reallocating memory\n");
-				return NULL;
-			}
+		apps = (pApplication)realloc(apps, (sizeof(APPLICATION) * appsNum));
+		if (!apps) {
+			fprintf(stderr, "Error reallocating memory\n");
+			return NULL;
+		}
 
+		for (int i = 0; i < appsNum; i++) {
 			*(apps + i) = createApplication();
 			readApplicationFromFile(fptr, *(apps + i));
 		}
@@ -70,13 +67,67 @@ pApplication* readFile() {
 }
 
 void readApplicationFromFile(FILE* fptr, pApplication app) {
-	fscanf_s(fptr, "\n%[^_]s", app->appName, APP_NAME_LENGTH);
-	fscanf_s(fptr, "_%[^_]s", app->username, USERNAME_LENGTH);
-	fscanf_s(fptr, "_%[^\n]s", app->password->password, PASSWORD_LENGTH);
+	fscanf_s(fptr, "\n%[^~]s", app->appName, APP_NAME_LENGTH);
+	fscanf_s(fptr, "~%[^~]s", app->username, USERNAME_LENGTH);
+	fscanf_s(fptr, "~%[^\n]s", app->password->password, PASSWORD_LENGTH);
 
 	decrypt(app);
 
 	return;
+}
+
+char* checkUserPass(char* fileName, char* username, char* password) {
+	pApplication* applications = readFile(fileName);
+
+	int count;
+	FILE* fptr;
+	fptr = fopen(fileName, "r");
+	if (fptr == NULL) {
+		fprintf(stderr, "Error openning %s file!\n", fileName);
+		exit(1);
+	}
+	count = countLines(fptr);
+	fclose(fptr);
+
+	if (count == 0) {
+		return NULL;
+	}
+
+	for (int i = 0; i < count; i++) {
+		if (strcmp(username, (*(applications + i))->username) == 0 && strcmp(password, (*(applications + i))->password->password) == 0) {
+			return (*(applications + i))->appName;
+		}
+	}
+	return NULL;
+}
+
+void rememberUserPass(char* filename, char* username, char* password) {
+	pApplication* applications = readFile(filename);
+
+	int count;
+	FILE* fptr;
+	fptr = fopen(filename, "r");
+	if (fptr == NULL) {
+		fprintf(stderr, "Error openning %s file!\n", filename);
+		exit(1);
+	}
+	count = countLines(fptr);
+	fclose(fptr);
+	
+	count++;
+	applications = (pApplication*)realloc(applications, sizeof(pApplication) * count);
+
+	int n = count - 1;
+	*(applications + n) = createApplication();
+
+	strcpy_s((*(applications + n))->appName, APP_NAME_LENGTH, username);
+	strncat((*(applications + n))->appName, ".txt", 4);
+	strcpy_s((*(applications + n))->username, USERNAME_LENGTH, username);
+	strcpy_s((*(applications + n))->password->password, PASSWORD_LENGTH, password);
+
+	writeToFile(filename, applications, count);
+
+	printf("Account successfully created!\nIn 3 seconds you will be redirected to the dashboard.\n");
 }
 
 bool isFileEmpty(FILE* fptr) {
@@ -93,4 +144,19 @@ bool isFileEmpty(FILE* fptr) {
 			return false;
 		}
 	}
+}
+
+int countLines(FILE* fptr) {
+	char ch;
+	int lines = 0;
+	while (!feof(fptr))
+	{
+		ch = fgetc(fptr);
+		if (ch == '\n')
+		{
+			lines++;
+		}
+	}
+	fseek(fptr, 0, SEEK_SET);
+	return lines;
 }

@@ -4,3 +4,5 @@
 typedef struct Password {
 	char* password;
 }PASSWORD, *pPassword;
+
+pPassword createPassword();

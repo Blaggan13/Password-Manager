@@ -1,0 +1,3 @@
+aaa.txt~OOO~PPP
+kkk.txt~YYY~ZZZZ
+abc.txt~OPQ~QPO
