@@ -1,11 +1,17 @@
 #pragma
 
-struct Password {
-	char* password[];
-};
-struct Password password1, new_password;
+typedef struct Password {
+	char* password;
+}Password, * pPassword;
 
-char randomPasswordGeneration(int length);
-char createPassword(char *password);
-//char changePassword(struct Password);
-void passwordStrengthChecker(password);
+// Function to initialize the password structure
+pPassword createPassword();
+
+// Function to randomly generate the password
+pPassword randomPasswordGeneration();
+
+// FUnction to change the password
+void changePassword(pPassword password, int strength);
+
+// Function to check the password strength
+int passwordStrengthChecker(pPassword pass);
