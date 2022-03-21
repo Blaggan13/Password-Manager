@@ -23,8 +23,40 @@ void loginPage(char* fileName) {
 }
 
 void menu(char* startupFile, char* passwordsFile) {
-	// The menu should display repeatedly until stopped.
-	exit(0);
+	pApplication apps = readFile(passwordsFile);
+	int count;
+	FILE* fptr;
+	fptr = fopen(passwordsFile, "r");
+	if (fptr == NULL) {
+		fprintf(stderr, "Error openning %s file!\n", passwordsFile);
+		exit(1);
+	}
+	count = countLines(fptr);
+	fclose(fptr);
+
+	while (1) {
+		printf("1 - Print all passwords.\n");
+		printf("2 - Add new password.\n");
+		printf("3 - Log out.\n");
+		printf("4 - Exit.\n");
+
+		char insert;
+		scanf_s(" %c", &insert);
+
+		switch (insert) {
+		case '1': {
+			printf("|\tAPP\t|\tUSERNAME\t|\tPassword\t|\n");
+			for (int i = 0; i < count; i++) {
+				printf("|\t%s\t|\t%s\t|\t%s\t|\n", *(apps + i)->appName, *(apps + i)->username, *(apps + i)->password->password);
+			}
+			break;
+		}
+		case '2': break;
+		case '3': loginPage(startupFile); break;
+		case '4': writeToFile(passwordsFile, apps, count);  printf("Have a great %s!\n", timeOfADay()); exit(0);
+		default: printf("Wrong input. Try again!\n"); break;
+		}
+	}
 }
 
 void login(char* fileName) {

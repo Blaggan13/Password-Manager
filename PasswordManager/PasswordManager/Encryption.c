@@ -17,13 +17,13 @@ char* encrypt(pApplication app) {
 	}
 
 	strncat(appStr, app->appName, strlen(app->appName));
-	appStr[strlen(app->appName)] = '\~';
+	appStr[strlen(app->appName)] = '~';
 	strncat(appStr, app->username, strlen(app->username));
-	appStr[strlen(app->appName) + strlen(app->username) + 1] = '\~';
+	appStr[strlen(app->appName) + strlen(app->username) + 1] = '~';
 	strncat(appStr, app->password->password, strlen(app->password->password));
 
 	for (int i = strlen(app->appName); i < strlen(appStr); i++) {
-		if (appStr[i] != '\~') {
+		if (appStr[i] != '~') {
 			appStr[i] -= 18;
 		}
 	}
@@ -39,5 +39,5 @@ void decrypt(pApplication app) {
 		app->password->password[i] += 18;
 	}
 
-	return app;
+	return;
 }
