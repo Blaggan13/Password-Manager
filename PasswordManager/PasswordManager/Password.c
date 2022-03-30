@@ -155,27 +155,40 @@ int passwordStrengthChecker(pPassword pass) {
 		return strength;
 }
 
-void changePassword(pPassword password, int strength) {
+void changePassword(pPassword password) {
+	//changePasswordFunctionality();
+
 	char* newPass = (char*)calloc(PASSWORD_LENGTH, sizeof(char));
+	/*printf_s("Enter New Password:- ");
+	gets(newPass, PASSWORD_LENGTH);*/
 
-	scanf_s("%[^\n]s", newPass, PASSWORD_LENGTH);
-
-	passwordStrengthChecker(newPass);
-
-	if (strength <= 2) {
-		char choice;
-		printf_s("Your password is weak!\nWant to generate a new password[y/n]:-");
-			scanf_s(" %c", &choice);
-		if (choice == 'y') {
-			password = randomPasswordGeneration();
-		}
-		else {
-			printf("You decided to stick with the one you entered\n");
-			strncpy(password->password, newPass, PASSWORD_LENGTH);
-		}
-	}
-	else if (strength >= 3)
-		printf_s("Your password is STRONG");
-
-
+	strncpy(password->password, newPass, PASSWORD_LENGTH);
 }
+
+//void changePasswordFunctionality(pPassword password, int strength) {
+//	/*char* newPass = (char*)calloc(PASSWORD_LENGTH, sizeof(char));
+//
+//	printf_s("Enter New Password:- ");
+//	gets(newPass, PASSWORD_LENGTH);*/
+//	//scanf_s("%[^\n]s", *newPass, PASSWORD_LENGTH);
+//
+//	//passwordStrengthChecker(newPass);
+//
+//	if (strength <= 2) {
+//		char choice;
+//		printf_s("Your password is weak!\nWant to generate a new password[y/n]:-");
+//		choice = getchar();
+//		//scanf_s(" %c", &choice);
+//		if (choice == 'y') {
+//			password = randomPasswordGeneration();
+//		}
+//		else {
+//			printf("You decided to stick with the one you entered\n");
+//			strncpy(password->password, newPass, PASSWORD_LENGTH);
+//		}
+//	}
+//	else if (strength >= 3)
+//		printf_s("Your password is STRONG");
+//
+//
+//}

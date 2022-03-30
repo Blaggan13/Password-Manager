@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Password.h"
+#define PASSWORD_LENGTH 50
 
 int main() {
 	   
@@ -29,6 +30,7 @@ int main() {
 	scanf_s("%d", &input);
 
 	char* pass = (char*)calloc(50, sizeof(char));
+	char* new_Pass = (char*)calloc(PASSWORD_LENGTH, sizeof(char));
 
 	switch (input)
 	{
@@ -76,7 +78,14 @@ int main() {
 			//	printf("\n");
 			//}
 	case 3:
-		void changePassword();
+
+		printf_s("Enter New Password:- ");
+		gets(new_Pass, PASSWORD_LENGTH);
+		
+		changePassword(new_Pass);
+
+		//changePassword();
+
 		break;
 	default:
 		break;

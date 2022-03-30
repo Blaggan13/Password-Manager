@@ -11,7 +11,7 @@ pPassword createPassword();
 pPassword randomPasswordGeneration();
 
 // FUnction to change the password
-void changePassword(pPassword password, int strength);
+void changePassword(pPassword password);
 
 // Function to check the password strength
 int passwordStrengthChecker(pPassword pass);
