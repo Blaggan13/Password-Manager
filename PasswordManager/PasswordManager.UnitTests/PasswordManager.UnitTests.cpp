@@ -25,16 +25,26 @@ namespace PasswordManagerUnitTests
 			pApplication app = (pApplication)malloc(sizeof(pApplication));
 			
 			strcpy(app->appName, "xyz");
-			//strcpy(app->username, "test");
 			
 			char expected = 'xyz';
 			char *Actual = app->appName;
-			//printf_s("\n%s", app->username);
 
 			Assert::AreEqual(expected, *Actual);
 		}
 
-		TEST_METHOD(TestMethod1_CheckFunctions)
+		TEST_METHOD(TestMethod2_CheckAppStructure_userName)
+		{
+			pApplication app = (pApplication)malloc(sizeof(pApplication));
+
+			strcpy(app->username, "test");
+
+			char expected = 'test';
+			char* Actual = app->username;
+
+			Assert::AreEqual(expected, *Actual);
+		}
+
+		TEST_METHOD(TestMethod3_CheckFunctions)
 		{
 
 		}
