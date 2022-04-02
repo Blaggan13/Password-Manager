@@ -4,7 +4,7 @@
 
 int main() {
 	printf_s("1. Create App\n");
-	printf_s("2. change App\n");
+	printf_s("2. Change App\n");
 	printf_s("3. Delete App\n");
 
 	int choice;

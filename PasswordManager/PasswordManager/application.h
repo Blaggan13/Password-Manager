@@ -5,10 +5,10 @@ typedef struct Application {
     char* appName;
     char* username;
     pPassword password;
-} APPLICATION, * pApplication;
+} APPLICATION, *pApplication;
 
 pApplication createApp();
 
-void deleteApp();
+void deleteApp(pApplication app);
 
-void changeApp();
+void changeApp(pApplication app);

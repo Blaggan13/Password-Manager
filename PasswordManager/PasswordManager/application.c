@@ -33,11 +33,11 @@ pApplication createApp() {
 	return app->appName, app->username, app->password;
 }
 
-void deleteApp() {
+void deleteApp(pApplication app) {
 
-	free(appName);
-	free(username);
-	free(password);
+	free(app->appName);
+	free(app->username);
+	free(app->password);
 
 }
 
