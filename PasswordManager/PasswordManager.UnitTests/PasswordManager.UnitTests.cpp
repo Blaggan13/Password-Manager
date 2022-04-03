@@ -49,7 +49,7 @@ namespace PasswordManagerUnitTests
 
 			strcpy(app->appName, "xyz");
 			strcpy(app->username, "test");
-			strcpy(app->password, "pass");;
+			strcpy(app->password->password, "pass");
 
 			createApp();
 			
