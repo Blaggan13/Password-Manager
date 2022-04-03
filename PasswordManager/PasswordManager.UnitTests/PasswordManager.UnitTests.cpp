@@ -1,8 +1,12 @@
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "Application.h"
 
+extern "C" {
 #define _CRT_SECURE_NO_WARNINGS
+#include "Application.h"
+#include "Password.h"
+#define LENGTH 20
+}
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -24,9 +28,8 @@ namespace PasswordManagerUnitTests
 		{
 			pApplication app = (pApplication)malloc(sizeof(pApplication));
 			
-			strcpy(app->appName, "xyz");
-			strcpy(app->username, "test");
-			strcpy(app->password, "pass");
+			strcpy_s(app->username, LENGTH, "test");
+			strcpy_s(app->password, LENGTH, "pass");
 
 			Assert::IsTrue(strcmp(app->appName, "xyz") == 0 && strcmp(app->username, "test") == 0 && strcmp(app->password->password, "pass") == 0);
 		}
@@ -35,7 +38,7 @@ namespace PasswordManagerUnitTests
 		{
 			pApplication app = (pApplication)malloc(sizeof(pApplication));
 
-			strcpy(app->password, "test");
+			strcpy_s(app->password, LENGTH, "test");
 
 			char expected = 'test';
 			char* Actual = app->password;
@@ -47,9 +50,9 @@ namespace PasswordManagerUnitTests
 		{
 			pApplication app = (pApplication)malloc(sizeof(pApplication));
 
-			strcpy(app->appName, "xyz");
-			strcpy(app->username, "test");
-			strcpy(app->password->password, "pass");
+			strcpy_s(app->appName, LENGTH, "xyz");
+			strcpy_s(app->username, LENGTH, "test");
+			strcpy_s(app->password, LENGTH, "pass");
 
 			createApp();
 			
@@ -61,9 +64,9 @@ namespace PasswordManagerUnitTests
 		{
 			pApplication app = (pApplication)malloc(sizeof(pApplication));
 
-			strcpy(app->appName, "xyz");
-			strcpy(app->username, "test");
-			strcpy(app->password, "pass");;
+			strcpy_s(app->appName, LENGTH, "xyz");
+			strcpy_s(app->username, LENGTH, "test");
+			strcpy_s(app->password, LENGTH, "pass");;
 
 			deleteApp(app);
 
@@ -75,9 +78,9 @@ namespace PasswordManagerUnitTests
 		{
 			pApplication app = (pApplication)malloc(sizeof(pApplication));
 
-			strcpy(app->appName, "Appname");
-			strcpy(app->username, "user");
-			strcpy(app->password, "Password");;
+			strcpy_s(app->appName, LENGTH, "Appname");
+			strcpy_s(app->username, LENGTH, "user");
+			strcpy_s(app->password, LENGTH, "Password");;
 
 			changeApp(app);
 
