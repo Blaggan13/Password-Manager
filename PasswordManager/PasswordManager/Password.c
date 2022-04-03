@@ -1,4 +1,4 @@
-//#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <math.h>
 #include <stdio.h>
@@ -20,7 +20,7 @@ pPassword createPassword() {
 
 	pass->password = (char*)calloc(PASSWORD_LENGTH, sizeof(char));
 
-	return pass;
+	return pass->password;
 }
 
 // Function to randomly generate the password
@@ -155,14 +155,14 @@ int passwordStrengthChecker(pPassword pass) {
 		return strength;
 }
 
-void changePassword(pPassword password) {
+void changePassword(pPassword pass) {
 	//changePasswordFunctionality();
 
 	char* newPass = (char*)calloc(PASSWORD_LENGTH, sizeof(char));
 	/*printf_s("Enter New Password:- ");
 	gets(newPass, PASSWORD_LENGTH);*/
 
-	strncpy(password->password, newPass, PASSWORD_LENGTH);
+	strcpy(pass->password, newPass, PASSWORD_LENGTH);
 }
 
 //void changePasswordFunctionality(pPassword password, int strength) {

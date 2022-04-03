@@ -29,8 +29,11 @@ int main() {
 	printf_s("\nEnter your selection:-");
 	scanf_s("%d", &input);
 
-	char* pass = (char*)calloc(50, sizeof(char));
-	char* new_Pass = (char*)calloc(PASSWORD_LENGTH, sizeof(char));
+	//char* pass = (char*)calloc(50, sizeof(char));
+	//char* new_Pass = (char*)calloc(PASSWORD_LENGTH, sizeof(char));
+
+	pPassword pass = (pPassword)malloc(sizeof(pPassword));
+	pass->password = (char*)calloc(PASSWORD_LENGTH, sizeof(char));
 
 	switch (input)
 	{
@@ -55,9 +58,9 @@ int main() {
 
 		printf_s("\nEnter the pass:");
 		//scanf_s("%s", pass);
-		gets(pass);
+		gets(pass->password);
 
-		passwordStrengthChecker(pass);
+		//passwordStrengthChecker(pass->password);
 
 			//char pass;
 			//int len, i, uppercase, lowercase, digit, specialcase;
@@ -80,9 +83,9 @@ int main() {
 	case 3:
 
 		printf_s("Enter New Password:- ");
-		gets(new_Pass, PASSWORD_LENGTH);
+		gets(pass->password, PASSWORD_LENGTH);
 		
-		changePassword(new_Pass);
+		changePassword(pass->password);
 
 		//changePassword();
 

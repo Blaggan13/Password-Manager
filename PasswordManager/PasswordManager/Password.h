@@ -2,7 +2,7 @@
 
 typedef struct Password {
 	char* password;
-}Password, * pPassword;
+}Password, *pPassword;
 
 // Function to initialize the password structure
 pPassword createPassword();
@@ -11,7 +11,7 @@ pPassword createPassword();
 pPassword randomPasswordGeneration();
 
 // FUnction to change the password
-void changePassword(pPassword password);
+void changePassword(pPassword pass);
 
 // Function to check the password strength
 int passwordStrengthChecker(pPassword pass);

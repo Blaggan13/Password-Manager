@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "pch.h"
 #include "CppUnitTest.h"
 #include <Password.h>
@@ -53,6 +55,24 @@ namespace PasswordManagerUnitTests
 		{
 			//Test method for testing if the password strength checker function works
 
+			pPassword pass = (pPassword)malloc(sizeof(pPassword));
+
+			strcpy(pass->password, "Password@123");
+
+			int expected = 4;
+
+			Assert::AreEqual(expected, passwordStrengthChecker(pass));
+		}
+
+		TEST_METHOD(TestMethod1_ChangePasword)
+		{
+			pPassword pass = (pPassword)malloc(sizeof(pPassword));
+
+			strcpy(pass->password, "Newpass@123");
+			
+			char expected[] = "Newpass@123";
+
+			Assert::AreEqual(expected, changePassword(pass));
 		}
 	};
 }
