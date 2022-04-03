@@ -1,8 +1,8 @@
-#define CRT_SECURE_NO_WARNINGS
-
 #include "pch.h"
 #include "CppUnitTest.h"
 #include "Application.h"
+
+#define _CRT_SECURE_NO_WARNINGS
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -20,32 +20,68 @@ namespace PasswordManagerUnitTests
 	{
 	public:
 
-		TEST_METHOD(TestMethod1_CheckAppStructure_AppName)
+		TEST_METHOD(TestMethod1_CheckAppStructure)
 		{
 			pApplication app = (pApplication)malloc(sizeof(pApplication));
 			
 			strcpy(app->appName, "xyz");
-			
-			char expected = 'xyz';
-			char *Actual = app->appName;
+			strcpy(app->username, "test");
+			strcpy(app->password, "pass");
 
-			Assert::AreEqual(expected, *Actual);
+			Assert::IsTrue(strcmp(app->appName, "xyz") == 0 && strcmp(app->username, "test") == 0 && strcmp(app->password->password, "pass") == 0);
 		}
 
-		TEST_METHOD(TestMethod2_CheckAppStructure_userName)
+		TEST_METHOD(TestMethod2_CheckAppStructure_Password)
 		{
 			pApplication app = (pApplication)malloc(sizeof(pApplication));
 
-			strcpy(app->username, "test");
+			strcpy(app->password, "test");
 
 			char expected = 'test';
-			char* Actual = app->username;
+			char* Actual = app->password;
 
 			Assert::AreEqual(expected, *Actual);
 		}
 
-		TEST_METHOD(TestMethod3_CheckFunctions)
+		TEST_METHOD(TestMethod3_CheckFunctions_CreateApp)
 		{
+			pApplication app = (pApplication)malloc(sizeof(pApplication));
+
+			strcpy(app->appName, "xyz");
+			strcpy(app->username, "test");
+			strcpy(app->password, "pass");;
+
+			createApp();
+			
+			Assert::IsTrue(strcmp(app->appName, "xyz") == 0 && strcmp(app->username, "test") == 0 && strcmp(app->password->password, "pass") == 0);
+
+		}
+
+		TEST_METHOD(TestMethod3_CheckFunctions_deleteApp)
+		{
+			pApplication app = (pApplication)malloc(sizeof(pApplication));
+
+			strcpy(app->appName, "xyz");
+			strcpy(app->username, "test");
+			strcpy(app->password, "pass");;
+
+			deleteApp(app);
+
+			Assert::IsTrue(strcmp(app->appName, "") == 0 && strcmp(app->username, "") == 0 && strcmp(app->password->password, "") == 0);
+
+		}
+
+		TEST_METHOD(TestMethod3_CheckFunctions_ChangeApp)
+		{
+			pApplication app = (pApplication)malloc(sizeof(pApplication));
+
+			strcpy(app->appName, "Appname");
+			strcpy(app->username, "user");
+			strcpy(app->password, "Password");;
+
+			changeApp(app);
+
+			Assert::IsTrue(strcmp(app->appName, "Appname") == 0 && strcmp(app->username, "user") == 0 && strcmp(app->password->password, "Password") == 0);
 
 		}
 	};
