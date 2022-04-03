@@ -20,7 +20,7 @@ pPassword createPassword() {
 
 	pass->password = (char*)calloc(PASSWORD_LENGTH, sizeof(char));
 
-	return pass->password;
+	return pass;
 }
 
 // Function to randomly generate the password
@@ -158,11 +158,11 @@ int passwordStrengthChecker(pPassword pass) {
 void changePassword(pPassword pass) {
 	//changePasswordFunctionality();
 
-	char* newPass = (char*)calloc(PASSWORD_LENGTH, sizeof(char));
+	pPassword newPass = createPassword();
 	/*printf_s("Enter New Password:- ");
 	gets(newPass, PASSWORD_LENGTH);*/
 
-	strcpy(pass->password, newPass, PASSWORD_LENGTH);
+	strncpy(pass->password, newPass, PASSWORD_LENGTH);
 }
 
 //void changePasswordFunctionality(pPassword password, int strength) {

@@ -29,8 +29,6 @@ int main() {
 	printf_s("\nEnter your selection:-");
 	scanf_s("%d", &input);
 
-	//char* pass = (char*)calloc(50, sizeof(char));
-	//char* new_Pass = (char*)calloc(PASSWORD_LENGTH, sizeof(char));
 
 	pPassword pass = (pPassword)malloc(sizeof(pPassword));
 	pass->password = (char*)calloc(PASSWORD_LENGTH, sizeof(char));
@@ -38,56 +36,26 @@ int main() {
 	switch (input)
 	{
 	case 1:
-		//printf_s("Enter the length for you password:-");
-		//scanf_s("%d", &length);
-
-		// Function Call
 		printf_s("\n");
 		printf_s("Your new generated password: ");
 		randomPasswordGeneration();
 		printf_s("\n");
-			//passwordStrengthChecker(password);
+
 		
 			
 	case 2:
-			//printf_s("Please enter password\n");
-			//scanf_s("%c", &password);
-			//passwordStrengthChecker(password);
-
-		//char* pass = (char*)calloc(50, sizeof(char));
 
 		printf_s("\nEnter the pass:");
-		//scanf_s("%s", pass);
 		gets(pass->password);
 
-		//passwordStrengthChecker(pass->password);
+		passwordStrengthChecker(pass->password);
 
-			//char pass;
-			//int len, i, uppercase, lowercase, digit, specialcase;
-			//i = uppercase = lowercase = digit = specialcase = 0;
-			//while (1) {
-			//	printf_s("\nEnter the pass:");
-			//	//scanf_s("%s", pass);
-			//	gets(pass);
-			//	len = strlen(pass);
-
-			//	if (len < 8) {
-			//		printf_s("pass should be 8 character\n");
-			//		getch();
-			//	}
-			//	else
-			//		passwordStrengthChecker(pass);
-			//		break;
-			//	printf("\n");
-			//}
 	case 3:
 
 		printf_s("Enter New Password:- ");
 		gets(pass->password, PASSWORD_LENGTH);
 		
 		changePassword(pass->password);
-
-		//changePassword();
 
 		break;
 	default:
