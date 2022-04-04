@@ -1,6 +1,8 @@
 #pragma once
 #include "Password.h"
 
+#define APP_NAME_LENGTH 50
+#define USERNAME_LENGTH 50
 #define NAME_LENGTH 50
 
 typedef struct Application {
