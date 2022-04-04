@@ -51,11 +51,11 @@ int main() {
 		passwordStrengthChecker(pass->password);
 
 	case 3:
-
+		char* newPassword = (char*)calloc(PASSWORD_LENGTH, sizeof(char));
 		printf_s("Enter New Password:- ");
-		gets(pass->password, PASSWORD_LENGTH);
+		gets(newPassword, PASSWORD_LENGTH);
 		
-		changePassword(pass->password);
+		changePassword(pass->password, newPassword);
 
 		break;
 	default:

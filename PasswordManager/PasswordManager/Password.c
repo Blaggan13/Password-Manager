@@ -9,8 +9,6 @@
 #include <ctype.h >
 #include "Password.h"
 
-#define PASSWORD_LENGTH 50
-
 pPassword createPassword() {
 	pPassword pass = (pPassword)malloc(sizeof(pPassword));
 	if (!pass) {
@@ -155,14 +153,10 @@ int passwordStrengthChecker(pPassword pass) {
 		return strength;
 }
 
-void changePassword(pPassword pass) {
-	//changePasswordFunctionality();
-
+void changePassword(pPassword pass, char* newPassword) {
 	pPassword newPass = createPassword();
-	/*printf_s("Enter New Password:- ");
-	gets(newPass, PASSWORD_LENGTH);*/
 
-	strncpy(pass->password, newPass, PASSWORD_LENGTH);
+	strncpy(pass->password, newPassword, PASSWORD_LENGTH);
 }
 
 //void changePasswordFunctionality(pPassword password, int strength) {

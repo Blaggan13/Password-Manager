@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include "Application.h"
 
-#define NAME_LENGTH 25
-
 pApplication createApp() {
 
 	pApplication app = (pApplication)malloc(sizeof(pApplication));
@@ -24,48 +22,25 @@ pApplication createApp() {
 		exit(-1);
 	}
 
-	app->password = (char*)calloc(NAME_LENGTH, sizeof(char));
-	if (!app->password) {
-		fprintf(stderr, "Error allocating memory");
-		exit(-1);
-	}
+	app->password = createPassword();
 
-	return app->appName, app->username, app->password;
+	return app;
 }
 
 void deleteApp(pApplication app) {
-
 	free(app->appName);
+	app->appName = NULL;
 	free(app->username);
+	app->username = NULL;
 	free(app->password);
+	app->password->password = NULL;
 
 }
 
-void changeApp(pApplication app) {
+void changeApp(pApplication app, char* appName, char* username, char* password) {
+	strncpy(app->appName, appName, NAME_LENGTH);
 
+	strncpy(app->username, username, NAME_LENGTH);
 
-	//Changing the APP Name
-	char* newAppName = (char*)calloc(NAME_LENGTH, sizeof(char));
-
-	scanf_s("%[^\n]s", newAppName, NAME_LENGTH);
-	strncpy(app->appName, newAppName, NAME_LENGTH);
-
-	//Changing the username
-	char* newUserName = (char*)calloc(NAME_LENGTH, sizeof(char));
-
-	scanf_s("%[^\n]s", newUserName, NAME_LENGTH);
-	strncpy(app->username, newUserName, NAME_LENGTH);
-
-	//changing the password
-	char* newPassword = (char*)calloc(NAME_LENGTH, sizeof(char));
-
-	scanf_s("%[^\n]s", newPassword, NAME_LENGTH);
-	strncpy(app->password, newPassword, NAME_LENGTH);
-
-	//Printing the changes
-	printf_s(" New app name: %s", newAppName);
-	printf_s(" New username: %s", newUserName);
-	printf_s(" New password: %s", newPassword);
-
-
+	changePassword(app->password, password);
 }
