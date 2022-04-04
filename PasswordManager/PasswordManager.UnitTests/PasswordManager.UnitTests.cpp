@@ -5,7 +5,6 @@ extern "C" {
 #define _CRT_SECURE_NO_WARNINGS
 #include "Application.h"
 #include "Password.h"
-#define LENGTH 20
 }
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -23,7 +22,6 @@ namespace PasswordManagerUnitTests
 	TEST_CLASS(AppllicationTests)
 	{
 	public:
-
 		TEST_METHOD(TestMethod1_CheckAppStructure)
 		{
 			pApplication app = (pApplication)malloc(sizeof(pApplication));
@@ -85,7 +83,6 @@ namespace PasswordManagerUnitTests
 			changeApp(app);
 
 			Assert::IsTrue(strcmp(app->appName, "Appname") == 0 && strcmp(app->username, "user") == 0 && strcmp(app->password->password, "Password") == 0);
-
 		}
 	};
 	TEST_CLASS(EncryptionTests)
@@ -107,9 +104,35 @@ namespace PasswordManagerUnitTests
 	TEST_CLASS(PasswordManagerTests)
 	{
 	public:
-
-		TEST_METHOD(TestMethod1)
+		TEST_METHOD(TestMethod1_PasswordGeneration)
 		{
+			//Test method to test the random password generation function
+			//strlen(randomPasswordGeneration);
+			Assert::IsTrue(strlen(randomPasswordGeneration()->password) >= 8);
+		}
+
+		TEST_METHOD(TestMethod2_PasswordStrengthChecker)
+		{
+			//Test method for testing if the password strength checker function works
+
+			pPassword pass = (pPassword)malloc(sizeof(pPassword));
+
+			strcpy_s(pass->password, PASSWORD_LENGTH, "Password@123");
+
+			int expected = 4;
+
+			Assert::AreEqual(expected, passwordStrengthChecker(pass));
+		}
+
+		TEST_METHOD(TestMethod3_ChangePasword)
+		{
+			pPassword pass = (pPassword)malloc(sizeof(pPassword));
+
+			strcpy_s(pass->password, PASSWORD_LENGTH, "Newpass@123");
+			
+			char expected[] = "Newpass@123";
+
+			//Assert::AreEqual(expected, changePassword(pass));
 		}
 	};
 }
