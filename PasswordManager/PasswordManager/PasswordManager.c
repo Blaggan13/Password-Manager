@@ -27,7 +27,7 @@ void menu(char* startupFile, char* passwordsFile) {
 	pApplication* apps = readFile(passwordsFile);
 	int count;
 	FILE* fptr;
-	fptr = fopen(passwordsFile, "r");
+	fptr = fopen(passwordsFile, "a+");
 	if (fptr == NULL) {
 		fprintf(stderr, "Error openning %s file!\n", passwordsFile);
 		exit(1);
@@ -37,18 +37,19 @@ void menu(char* startupFile, char* passwordsFile) {
 
 	while (1) {
 		printf("1 - Print all passwords.\n");
-		printf("2 - Add new password.\n");
-		printf("3 - Log out.\n");
-		printf("4 - Exit.\n");
+		printf("2 - Add new application-password pair.\n");
+		printf("3 - Find Password by app name.\n");
+		printf("4 - Log out.\n");
+		printf("5 - Exit.\n");
 
 		char insert;
 		scanf_s(" %c", &insert);
 
 		switch (insert) {
 		case '1': {
-			printf("|\tAPP\t|\tUSERNAME\t|\tPassword\t|\n");
+			printf("|\t\t\tAPP\t\t|\t\tUSERNAME\t\t|\t\tPassword\t\t|\n");
 			for (int i = 0; i < count; i++) {
-				printf("|\t%s\t|\t%s\t|\t%s\t|\n", (*(apps + i))->appName, (*(apps + i))->username, (*(apps + i))->password->password);
+				printf("|\t%25s\t|\t%25s\t|\t%25s\t|\n", (*(apps + i))->appName, (*(apps + i))->username, (*(apps + i))->password->password);
 			}
 			break;
 		}
@@ -61,8 +62,6 @@ void menu(char* startupFile, char* passwordsFile) {
 			getchar();
 			printf("Insert the name of the application you are adding a password for: ");
 			gets_s((*(apps + act))->appName, APP_NAME_LENGTH);
-
-			getchar();
 			printf("Insert your username in this application: ");
 			gets_s((*(apps + act))->username, USERNAME_LENGTH);
 
@@ -93,8 +92,24 @@ void menu(char* startupFile, char* passwordsFile) {
 			}
 			break;
 		}
-		case '3': system("cls"); writeToFile(passwordsFile, apps, count); loginPage(startupFile); break;
-		case '4': system("cls"); writeToFile(passwordsFile, apps, count);  printf("Have a great %s!\n", timeOfADay()); exit(0);
+		case '3': {
+			getchar();
+			printf("Input name of the app, you want to find: ");
+			char* appname = (char*)calloc(APP_NAME_LENGTH, sizeof(char));
+			gets_s(appname, APP_NAME_LENGTH);
+
+			printf("|\t\t\tAPP\t\t|\t\tUSERNAME\t\t|\t\tPassword\t\t|\n");
+
+			for (int i = 0; i < count; i++) {
+				if (strcmp((*(apps + i))->appName, appname) == 0) {
+					printf("|\t%25s\t|\t%25s\t|\t%25s\t|\n", (*(apps + i))->appName, (*(apps + i))->username, (*(apps + i))->password->password);
+				}
+			}
+
+			break;
+		}
+		case '4': system("cls"); writeToFile(passwordsFile, apps, count); loginPage(startupFile); break;
+		case '5': system("cls"); writeToFile(passwordsFile, apps, count);  printf("Have a great %s!\n", timeOfADay()); exit(0);
 		default: printf("Wrong input. Try again!\n"); break;
 		}
 	}

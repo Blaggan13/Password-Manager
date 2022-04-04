@@ -30,7 +30,7 @@ pApplication* readFile(char* FILE_NAME) {
 	}
 
 	FILE* fptr;
-	fptr = fopen(FILE_NAME, "r");
+	fptr = fopen(FILE_NAME, "a+");
 	if (fptr == NULL) {
 		if (fptr = NULL) {
 			fprintf(stderr, "Error openning %s file!\n", FILE_NAME);
