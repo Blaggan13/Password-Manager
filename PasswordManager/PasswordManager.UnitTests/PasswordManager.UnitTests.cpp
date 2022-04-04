@@ -106,11 +106,9 @@ namespace PasswordManagerUnitTests
 			Assert::IsTrue(strcmp(app->appName, "Appname") == 0 && strcmp(app->username, "user") == 0 && strcmp(app->password->password, "Password") == 0);
 		}
 	};
-
 	TEST_CLASS(EncryptionTests)
 	{
 	public:
-
 		TEST_METHOD(T001_encrypt_appNameUsernamePassword) {
 			// This test case is designed to check if the encrypt() function works properly.
 			pApplication app = createApp();
@@ -176,7 +174,6 @@ namespace PasswordManagerUnitTests
 	TEST_CLASS(FileIOTests)
 	{
 	public:
-		
 		TEST_METHOD(T001_countLines_aaa_0)
 		{
 			FILE* fptr;
