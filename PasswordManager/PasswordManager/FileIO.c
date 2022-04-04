@@ -32,8 +32,10 @@ pApplication* readFile(char* FILE_NAME) {
 	FILE* fptr;
 	fptr = fopen(FILE_NAME, "r");
 	if (fptr == NULL) {
-		fprintf(stderr, "Error openning %s file!\n", FILE_NAME);
-		exit(1);
+		if (fptr = NULL) {
+			fprintf(stderr, "Error openning %s file!\n", FILE_NAME);
+			exit(1);
+		}
 	}
 
 	if (isFileEmpty(fptr)) {

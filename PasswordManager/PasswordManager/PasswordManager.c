@@ -10,20 +10,21 @@ void loginPage(char* fileName) {
 	printf("Good %s!\n", timeOfADay());
 
 	while (1) {
-		printf("1. Login\n2. Create an account\n");
+		printf("1. Login\n2. Create an account\n3. Exit\n");
 		char menu;
 		scanf_s(" %c", &menu, 1);
 
 		switch (menu) {
 		case '1': login(fileName); break;
 		case '2': createNewAccount(fileName); break;
+		case '3': exit(1); break;
 		default: printf("Wrong input. Try again, please\n"); break;
 		}
 	}
 }
 
 void menu(char* startupFile, char* passwordsFile) {
-	pApplication apps = readFile(passwordsFile);
+	pApplication* apps = readFile(passwordsFile);
 	int count;
 	FILE* fptr;
 	fptr = fopen(passwordsFile, "r");
@@ -47,13 +48,53 @@ void menu(char* startupFile, char* passwordsFile) {
 		case '1': {
 			printf("|\tAPP\t|\tUSERNAME\t|\tPassword\t|\n");
 			for (int i = 0; i < count; i++) {
-				printf("|\t%s\t|\t%s\t|\t%s\t|\n", (*(apps + i)).appName, (*(apps + i)).username, (*(apps + i)).password->password);
+				printf("|\t%s\t|\t%s\t|\t%s\t|\n", (*(apps + i))->appName, (*(apps + i))->username, (*(apps + i))->password->password);
 			}
 			break;
 		}
-		case '2': break;
-		case '3': loginPage(startupFile); break;
-		case '4': writeToFile(passwordsFile, apps, count);  printf("Have a great %s!\n", timeOfADay()); exit(0);
+		case '2': {
+			count++;
+			apps = (pApplication*)realloc(apps, count * sizeof(pApplication));
+			int act = count - 1;
+			*(apps + act) = createApp();
+
+			getchar();
+			printf("Insert the name of the application you are adding a password for: ");
+			gets_s((*(apps + act))->appName, APP_NAME_LENGTH);
+
+			getchar();
+			printf("Insert your username in this application: ");
+			gets_s((*(apps + act))->username, USERNAME_LENGTH);
+
+			int looper = 1;
+			while (looper) {
+				printf("1. Do you want to insert your own password?\n2. Or do you want to generate one?\n");
+				char in;
+				scanf_s(" %c", &in);
+				switch (in) {
+					case '1': {
+						getchar();
+						printf("Insert your password: ");
+						gets_s((*(apps + act))->password->password, PASSWORD_LENGTH);
+						looper = 0;
+						break;
+					}
+					case '2': {
+						changePassword((*(apps + act))->password, randomPasswordGeneration()->password);
+						printf("Here is your password for this application: %s.\n", (*(apps + act))->password->password);
+						looper = 0;
+						break;
+					}
+					default: {
+						printf("Wrong input. Please, try again.\n");
+						break;
+					}
+				}
+			}
+			break;
+		}
+		case '3': system("cls"); writeToFile(passwordsFile, apps, count); loginPage(startupFile); break;
+		case '4': system("cls"); writeToFile(passwordsFile, apps, count);  printf("Have a great %s!\n", timeOfADay()); exit(0);
 		default: printf("Wrong input. Try again!\n"); break;
 		}
 	}

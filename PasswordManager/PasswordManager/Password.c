@@ -34,8 +34,6 @@ pPassword randomPasswordGeneration() {
 		*(password->password + i) = rand() % 90 + 35;
 	}
 
-	printf_s(" %s", password->password);
-
 	return password;
 	//
 	//// Initialize counter
