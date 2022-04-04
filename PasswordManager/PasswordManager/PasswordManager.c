@@ -47,7 +47,7 @@ void menu(char* startupFile, char* passwordsFile) {
 		case '1': {
 			printf("|\tAPP\t|\tUSERNAME\t|\tPassword\t|\n");
 			for (int i = 0; i < count; i++) {
-				printf("|\t%s\t|\t%s\t|\t%s\t|\n", *(apps + i)->appName, *(apps + i)->username, *(apps + i)->password->password);
+				printf("|\t%s\t|\t%s\t|\t%s\t|\n", (*(apps + i)).appName, (*(apps + i)).username, (*(apps + i)).password->password);
 			}
 			break;
 		}

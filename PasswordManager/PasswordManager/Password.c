@@ -6,7 +6,7 @@
 #include <time.h>
 #include <string.h>
 #include <stdbool.h>
-#include <ctype.h >
+#include <ctype.h>
 #include "Password.h"
 
 pPassword createPassword() {

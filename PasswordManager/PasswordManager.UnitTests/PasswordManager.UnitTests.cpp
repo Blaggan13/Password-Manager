@@ -113,7 +113,7 @@ namespace PasswordManagerUnitTests
 
 		TEST_METHOD(T001_encrypt_appNameUsernamePassword) {
 			// This test case is designed to check if the encrypt() function works properly.
-			pApplication app = createApplication();
+			pApplication app = createApp();
 			app->appName = "appName";
 			app->username = "username";
 			app->password->password = "password";
@@ -122,7 +122,7 @@ namespace PasswordManagerUnitTests
 		}
 		TEST_METHOD(T002_encrypt_abcDEFghi) {
 			// This test case is designed to check if the encrypt() function works properly.
-			pApplication app = createApplication();
+			pApplication app = createApp();
 			app->appName = "abc";
 			app->username = "DEF";
 			app->password->password = "ghi";
@@ -131,7 +131,7 @@ namespace PasswordManagerUnitTests
 		}
 		TEST_METHOD(T003_encrypt_abcQWErty) {
 			// This test case is designed to check if the encrypt() function works properly.
-			pApplication app = createApplication();
+			pApplication app = createApp();
 			app->appName = "abc";
 			app->username = "QWE";
 			app->password->password = "rty";
@@ -140,7 +140,7 @@ namespace PasswordManagerUnitTests
 		}
 		TEST_METHOD(T004_decrypt_appNamecaSOSOaaeR) {
 			// This test case is designed to check if the decrypt() function works properly.
-			pApplication app = createApplication();
+			pApplication app = createApp();
 			strcpy_s(app->appName, APP_NAME_LENGTH, "appName");
 			strcpy_s(app->username, USERNAME_LENGTH, "caS`");
 			strcpy_s(app->password->password, PASSWORD_LENGTH, "^Oaae]`R");
@@ -151,7 +151,7 @@ namespace PasswordManagerUnitTests
 		}
 		TEST_METHOD(T005_decrypt_abc234UVW) {
 			// This test case is designed to check if the decrypt() function works properly.
-			pApplication app = createApplication();
+			pApplication app = createApp();
 			strcpy_s(app->appName, APP_NAME_LENGTH, "abc");
 			strcpy_s(app->username, USERNAME_LENGTH, "234");
 			strcpy_s(app->password->password, PASSWORD_LENGTH, "UVW");
@@ -163,7 +163,7 @@ namespace PasswordManagerUnitTests
 		}
 		TEST_METHOD(T006_decrypt_abcE3bg) {
 			// This test case is designed to check if the decrypt() function works properly.
-			pApplication app = createApplication();
+			pApplication app = createApp();
 			strcpy_s(app->appName, APP_NAME_LENGTH, "abc");
 			strcpy_s(app->username, USERNAME_LENGTH, "?E3");
 			strcpy_s(app->password->password, PASSWORD_LENGTH, "`bg");
@@ -233,7 +233,7 @@ namespace PasswordManagerUnitTests
 		{
 			FILE* fptr;
 			fopen_s(&fptr, "C:\\Users\\armak\\source\\repos\\Team Based Software Development\\PasswordManager\\PasswordManager\\applog.txt", "r");
-			pApplication app = createApplication();
+			pApplication app = createApp();
 
 			readApplicationFromFile(fptr, app);
 
@@ -243,7 +243,7 @@ namespace PasswordManagerUnitTests
 		TEST_METHOD(T009_readApplicationFromFile_appUserPass) {
 			FILE* fptr;
 			fopen_s(&fptr, "C:\\Users\\armak\\source\\repos\\Team Based Software Development\\PasswordManager\\PasswordManager\\textfile.txt", "r");
-			pApplication app = createApplication();
+			pApplication app = createApp();
 
 			readApplicationFromFile(fptr, app);
 
@@ -259,7 +259,7 @@ namespace PasswordManagerUnitTests
 			pApplication* apps = readFile("C:\\Users\\armak\\source\\repos\\Team Based Software Development\\PasswordManager\\PasswordManager\\applog.txt");
 			apps = (pApplication*)realloc(apps, (lines * sizeof(pApplication)));
 			lines--;
-			*(apps + lines) = createApplication();
+			*(apps + lines) = createApp();
 			strcpy_s((*(apps + lines))->appName, APP_NAME_LENGTH, "appname");
 			strcpy_s((*(apps + lines))->username, USERNAME_LENGTH, "username");
 			strcpy_s((*(apps + lines))->password->password, PASSWORD_LENGTH, "password");
@@ -279,7 +279,7 @@ namespace PasswordManagerUnitTests
 			pApplication* apps = readFile("C:\\Users\\armak\\source\\repos\\Team Based Software Development\\PasswordManager\\PasswordManager\\text.txt");
 			apps = (pApplication*)realloc(apps, (lines * sizeof(pApplication)));
 			lines--;
-			*(apps + lines) = createApplication();
+			*(apps + lines) = createApp();
 			strcpy_s((*(apps + lines))->appName, APP_NAME_LENGTH, "someName");
 			strcpy_s((*(apps + lines))->username, USERNAME_LENGTH, "USER");
 			strcpy_s((*(apps + lines))->password->password, PASSWORD_LENGTH, "PASS");
@@ -299,7 +299,7 @@ namespace PasswordManagerUnitTests
 			pApplication* apps = readFile("C:\\Users\\armak\\source\\repos\\Team Based Software Development\\PasswordManager\\PasswordManager\\text.txt");
 			apps = (pApplication*)realloc(apps, (lines * sizeof(pApplication)));
 			lines--;
-			*(apps + lines) = createApplication();
+			*(apps + lines) = createApp();
 			strcpy_s((*(apps + lines))->appName, APP_NAME_LENGTH, "qwertgcx");
 			strcpy_s((*(apps + lines))->username, USERNAME_LENGTH, "shvcser");
 			strcpy_s((*(apps + lines))->password->password, PASSWORD_LENGTH, "mnbvfghhgfd");
@@ -309,13 +309,6 @@ namespace PasswordManagerUnitTests
 			apps = readFile("C:\\Users\\armak\\source\\repos\\Team Based Software Development\\PasswordManager\\PasswordManager\\text.txt");
 
 			Assert::IsTrue(strcmp("qwertgcx", (*(apps + lines))->appName) == 0 && strcmp("shvcser", (*(apps + lines))->username) == 0 && strcmp("mnbvfghhgfd", (*(apps + lines))->password->password) == 0);
-		}
-	};
-	TEST_CLASS(PasswordManagerTests)
-	{
-	public:
-		TEST_METHOD(TestMethod1)
-		{
 		}
 	};
 }

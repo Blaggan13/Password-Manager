@@ -55,7 +55,7 @@ pApplication* readFile(char* FILE_NAME) {
 		}
 
 		for (int i = 0; i < appsNum; i++) {
-			*(apps + i) = createApplication();
+			*(apps + i) = createApp();
 			readApplicationFromFile(fptr, *(apps + i));
 		}
 		fclose(fptr);
@@ -118,7 +118,7 @@ void rememberUserPass(char* filename, char* username, char* password) {
 	applications = (pApplication*)realloc(applications, sizeof(pApplication) * count);
 
 	int n = count - 1;
-	*(applications + n) = createApplication();
+	*(applications + n) = createApp();
 
 	strcpy_s((*(applications + n))->appName, APP_NAME_LENGTH, username);
 	strncat((*(applications + n))->appName, ".txt", 4);

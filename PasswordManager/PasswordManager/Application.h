@@ -1,13 +1,18 @@
 #pragma once
-#define APP_NAME_LENGTH 50
-#define USERNAME_LENGTH 50
-
 #include "Password.h"
 
+#define APP_NAME_LENGTH 50
+#define USERNAME_LENGTH 50
+#define NAME_LENGTH 50
+
 typedef struct Application {
-	char* appName;
-	char* username;
-	pPassword password;
+    char* appName;
+    char* username;
+    pPassword password;
 } APPLICATION, *pApplication;
 
-pApplication createApplication();
+pApplication createApp();
+
+void deleteApp(pApplication app);
+
+void changeApp(pApplication app, char* appName, char* username, char* password);
