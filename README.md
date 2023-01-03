@@ -1,1 +1,1 @@
-# Passwrod Manager - CSCN71030-Sec1-Group-17
+# Password Manager - CSCN71030-Sec1-Group-17
